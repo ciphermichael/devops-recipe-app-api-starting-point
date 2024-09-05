@@ -42,7 +42,6 @@ data "aws_iam_policy_document" "tf_backend" {
   }
 }
 
-
 resource "aws_iam_policy" "tf_backend" {
   name        = "${aws_iam_user.cd.name}-tf-s3-dynamodb"
   description = "Allow user to use s3 and DynamoDB fior TF backend resources"
@@ -52,4 +51,42 @@ resource "aws_iam_policy" "tf_backend" {
 resource "aws_iam_user_policy_attachment" "tf_backend" {
   user       = aws_iam_user.cd.name
   policy_arn = aws_iam_policy.tf_backend.arn
+}
+
+#########################
+# Policy for ECR access #
+#########################
+
+data "aws_iam_policy_document" "ecr" {
+  statement {
+    effect    = "Allow"
+    actions   = ["ecr:GetAuthorizationToken"]
+    resources = ["*"]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "ecr:CompleteLayerUpload",
+      "ecr:UploadLayerPart",
+      "ecr:InitiateLayerUpload",
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:PutImage"
+    ]
+    resources = [
+      aws_ecr_repository.app.arn,
+      aws_ecr_repository.proxy.arn,
+    ]
+  }
+}
+
+resource "aws_iam_policy" "ecr" {
+  name        = "${aws_iam_user.cd.name}-ecr"
+  description = "Allow user to manage ECR resources"
+  policy      = data.aws_iam_policy_document.ecr.json
+}
+
+resource "aws_iam_user_policy_attachment" "ecr" {
+  user       = aws_iam_user.cd.name
+  policy_arn = aws_iam_policy.ecr.arn
 }
