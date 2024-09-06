@@ -10,7 +10,7 @@ terraform {
   backend "s3" {
     bucket               = "ciphersecio-app-state-tf"
     key                  = "tf-state-deploy"
-    workspace_key_prefix = "tf-state-deploy-prefix"
+    workspace_key_prefix = "tf-state-deploy-env"
     region               = "eu-west-1"
     encrypt              = true
     dynamodb_table       = "ciphersecio-tf-lock"
