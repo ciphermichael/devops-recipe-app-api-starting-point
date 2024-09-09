@@ -1,11 +1,11 @@
 variable "tf_state_bucket" {
   description = "Name of the S3 bucket in AWS for storing the state"
-  default     = "ciphersecio-app-state-tf"
+  default     = "ciphersecio-devops-recipe-app-api-state"
 }
 
 variable "tf_state_lock_table" {
   description = "Name of the dynamodb table for the TF state locking"
-  default     = "ciphersecio-tf-lock"
+  default     = "ciphersecio-devops-recipe-app-api-tf-lock"
 }
 
 variable "project" {

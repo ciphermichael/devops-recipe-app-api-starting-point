@@ -6,14 +6,13 @@ terraform {
     }
   }
 
-
   backend "s3" {
-    bucket               = "ciphersecio-app-state-tf"
+    bucket               = "ciphersecio-devops-recipe-app-api-state"
     key                  = "tf-state-deploy"
     workspace_key_prefix = "tf-state-deploy-env"
     region               = "eu-west-1"
     encrypt              = true
-    dynamodb_table       = "ciphersecio-tf-lock"
+    dynamodb_table       = "ciphersecio-devops-recipe-app-api-tf-lock"
   }
 }
 
@@ -24,7 +23,7 @@ provider "aws" {
       Environment = terraform.workspace
       Project     = var.project
       Contact     = var.contact
-      ManagedBy   = "Terraform/setup"
+      ManageBy    = "Terraform/deploy"
     }
   }
 }

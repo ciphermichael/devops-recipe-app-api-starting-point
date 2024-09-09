@@ -8,11 +8,11 @@ terraform {
 
 
   backend "s3" {
-    bucket         = "ciphersecio-app-state-tf"
+    bucket         = "ciphersecio-devops-recipe-app-api-state"
     key            = "tf-state-setup"
     region         = "eu-west-1"
     encrypt        = true
-    dynamodb_table = "ciphersecio-tf-lock"
+    dynamodb_table = "ciphersecio-devops-recipe-app-api-tf-lock"
   }
 }
 
