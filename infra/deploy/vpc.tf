@@ -9,7 +9,7 @@ resource "aws_vpc" "main" {
 
   tags = {
     Name = "Main"
-    ManageBy = "Terraform"
+    ManageBy = "TerraformSetup"
   }
 }
 
