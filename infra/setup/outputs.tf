@@ -20,3 +20,7 @@ output "ecr_repo_proxy" {
   description = "ECR repository URL for the proxy image"
   value       = aws_ecr_repository.proxy.repository_url
 }
+
+output "api_endpoint" {
+  value = aws_route53_record.app.fqdn
+}
